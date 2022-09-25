@@ -1,11 +1,11 @@
-import { 
+import {
     START_RESIDENTS_RETRIEVE,
     RETRIEVE_RESIDENTS_OK,
-    RETRIEVE_RESIDENTS_ERROR    
+    RETRIEVE_RESIDENTS_ERROR
 } from '../types'
 
 const initialState = {
-    residents: [],
+    residents: {},
     error: false,
     loading: false,
     loaded: false
@@ -22,7 +22,7 @@ const residentsReducer = function (state = initialState, action) {
         case RETRIEVE_RESIDENTS_OK:
             return {
                 ...state,
-                planets: action.payload,
+                residents: action.payload,
                 loading: false,
                 loaded: true
             }
@@ -32,7 +32,7 @@ const residentsReducer = function (state = initialState, action) {
                 error: action.payload,
                 loading: false
             }
-        default: 
+        default:
             return {
                 ...state
             }

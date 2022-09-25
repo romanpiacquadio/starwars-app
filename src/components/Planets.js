@@ -1,31 +1,37 @@
 import Planet from "./Planet"
 import { useDispatch, useSelector } from 'react-redux';
-import { getPlanetsAction } from '../actions/planetsActions'
 import { useEffect } from 'react'
+import { getPlanetsAction } from '../actions/planetsActions'
+import { getResidentsAction } from "../actions/residentsActions";
 
 const Planets = () => {
   const dispatch = useDispatch();
   const getPlanets = () => (dispatch ( getPlanetsAction() ))
+  const getResidents = () => (dispatch ( getResidentsAction() ))
   
-  const loading = useSelector(state => state.planets.loading) // es un boolean
+  const loadingPlanets = useSelector(state => state.planets.loading) // es un boolean
   const planets = useSelector(state => state.planets.planets) // es un array
-  const error = useSelector(state => state.planets.error) // es un boolean
-  const loaded = useSelector(state => state.planets.loaded) // es un boolean
+  const errorPlanets = useSelector(state => state.planets.error) // es un boolean
+  const loadedPlanets = useSelector(state => state.planets.loaded) // es un boolean
+
+  const loadedResidents = useSelector(state => state.residents.loaded)
   
   useEffect(() => {
-    console.log('holaa')
     const bringAllPlanets = async () => {
       await getPlanets()
-      console.log('entro al usefect')
+      console.log('entro al bringallplanets')
     }
-    if(!loaded){
+    if(!loadedResidents) {
+      getResidents()
+    }
+    if(!loadedPlanets){
       bringAllPlanets()
     }
   }, [])
 
   return (
     <div className="planets">
-      {loading && <h4>LOADING...</h4>}
+      {loadingPlanets && <h4>LOADING...</h4>}
       {planets.length >= 1 && planets.map( (planet, index) => <Planet 
         key={index}
         name={planet.name}
@@ -34,7 +40,7 @@ const Planets = () => {
         diameter={planet.diameter}
         climate={planet.climate}
         />)}
-      {error && <h4>There was an error...</h4>}
+      {errorPlanets && <h4>There was an error...</h4>}
     </div>
   )
 }

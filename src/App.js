@@ -16,7 +16,7 @@ function App() {
           <Route path='/' element={<Layout/>}>
             <Route index element={<Planets/>} />
             <Route path='planets/:name' element={<PlanetResidents/>} />
-            <Route path='residents/:id' element={<Resident/>} />
+            <Route path='residents/:name' element={<Resident/>} />
           </Route>
         </Routes>
     </Provider>
