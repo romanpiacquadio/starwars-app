@@ -68,4 +68,27 @@ body a {
   font-size: 16px;
 }
 
+.pagination {
+  align-content: center;
+}
+
+.pagination__list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  align-content: center;
+}
+
+.pagination__item {
+  margin: 10px;
+  padding: 10px;
+}
+.pagination__item :hover {
+  cursor: pointer;
+  color: #f34949;
+  text-decoration: underline;
+}
+
 /*# sourceMappingURL=styles.css.map */

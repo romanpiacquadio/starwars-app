@@ -1,7 +1,6 @@
 import { useState } from "react"
 
-const Searchbar = () => {
-  const [input, setInput] = useState('')
+const InputFilter = ({filter, setFilter}) => {
   
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -10,7 +9,7 @@ const Searchbar = () => {
 
   const handleChange = (e) => {
     e.preventDefault()
-    setInput(e.target.value)
+    setFilter(e.target.value)
   }
   
   return (
@@ -23,4 +22,4 @@ const Searchbar = () => {
   )
 }
 
-export default Searchbar
+export default InputFilter
