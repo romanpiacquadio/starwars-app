@@ -1,8 +1,10 @@
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 import { 
     START_PLANETS_RETRIEVE,
     RETRIEVE_PLANETS_OK,
-    RETRIEVE_PLANETS_ERROR    
+    RETRIEVE_PLANETS_ERROR,
+    FILTER_PLANETS    
 } from '../types'
 
 export function getPlanetsAction() {
@@ -10,21 +12,24 @@ export function getPlanetsAction() {
         dispatch ( getPlanets() )
         try {
             let planets = []
-            let next = true
-            let i = 1
-            while(next){
-                console.log(`fetcheando planets vez nro ${i}`)
-                const {data} = await axios.get(`https://swapi.dev/api/planets/?page=${i}`)
+            let url = `https://swapi.dev/api/planets/?page=1`
+            while(url){
+                const {data} = await axios.get(url)
                 planets = planets.concat(data.results)
-                next = data.next
-                i = i + 1
+                dispatch ( getPlanetsOk(planets) )
+                url = data.next
             }
-            dispatch ( getPlanetsOk(planets) )
             
         } catch (error) {
             dispatch ( getPlanetsError(error) )
         }
     } 
+}
+
+export function filterPlanetsAction(keyword) {
+    return async (dispatch) => {
+        dispatch (getFilteredPlanets(keyword))
+    }
 }
 
 const getPlanets = () => ({
@@ -40,4 +45,9 @@ const getPlanetsOk = (planets) => ({
 const getPlanetsError = () => ({
     type: RETRIEVE_PLANETS_ERROR,
     payload: true
+})
+
+const getFilteredPlanets = (keyword) => ({
+    type: FILTER_PLANETS,
+    payload: keyword
 })

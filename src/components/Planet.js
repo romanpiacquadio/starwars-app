@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 const Planet = ({name, rotperiod, orbperiod, diameter, climate}) => {
   return (
     <div className="planet">
-      <Link to={`/planets/${name}`}><h4 className="planet__name">{name}</h4></Link>
+      <Link to={`/planet/${name}`}><h4 className="planet__name">{name}</h4></Link>
       <div className="planet__attribute">
         <h5>Rotation Period: </h5>
         <p>{rotperiod}</p>

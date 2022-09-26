@@ -5,11 +5,14 @@ import { getResidentsAction } from "../actions/residentsActions"
 import Planet from "./Planet"
 import Pagination from "./Pagination"
 import InputFilter from './InputFilter'
+import { useLocation, useParams } from 'react-router-dom'
 
 
 const Planets = () => {
-  const [filter, setFilter] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
+  const search = useLocation().search
+  const page = new URLSearchParams(search).get('page') || 1
+  
+  const [currentPage, setCurrentPage] = useState(page)
   const [planetsPerPage, setPlanetsPerPage] = useState(10)
 
   const dispatch = useDispatch();
@@ -18,7 +21,7 @@ const Planets = () => {
   
   const loadingPlanets = useSelector(state => state.planets.loading) // es un boolean
   const errorPlanets = useSelector(state => state.planets.error) // es un boolean
-  const planets = useSelector(state => state.planets.planets) // es un array
+  const planets = useSelector(state => state.planets.planetsFiltered) // es un array
   const loadedPlanets = useSelector(state => state.planets.loaded) // es un boolean
 
   const loadedResidents = useSelector(state => state.residents.loaded)
@@ -27,30 +30,29 @@ const Planets = () => {
   const indexOfFirstPlanet = indexOfLastPlanet - planetsPerPage
   const currentPlanets = planets.slice(indexOfFirstPlanet, indexOfLastPlanet)
 
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber)
-  }
   
   useEffect(() => {
     const bringAllPlanets = async () => {
       await getPlanets()
-      console.log('entro al bringallplanets')
-    }
-    if(!loadedResidents) {
-      getResidents()
     }
     if(!loadedPlanets){
       bringAllPlanets()
     }
-  }, [])
+    if(!loadedResidents) {
+      getResidents()
+    }
+    setCurrentPage(page)
+  }, [page])
 
   return (
     <div className="planets__page">
-      <InputFilter filter={filter} setFilter={setFilter}/>
+      <div className='planets__input'>
+        <InputFilter />
+      </div>
       <div className="planets">
         {loadingPlanets && <h4>LOADING...</h4>}
-        {planets.length >= 1 && filter === '' && currentPlanets.map( (planet, index) => <Planet 
-          key={index}
+        {planets.length >= 1 && currentPlanets.map( planet => <Planet 
+          key={planet.url}
           name={planet.name}
           rotperiod={planet.rotation_period}
           orbperiod={planet.orbital_period}
@@ -58,8 +60,9 @@ const Planets = () => {
           climate={planet.climate}
           />)}
         {errorPlanets && <h4>There was an error...</h4>}
+        {errorPlanets===false && loadingPlanets===false &&planets.length === 0 && <h4>No planets found with that name</h4> }
       </div>
-      <Pagination paginate={paginate} planetsPerPage={planetsPerPage} totalPlanets={planets.length}/>
+      <Pagination planetsPerPage={planetsPerPage} totalPlanets={planets.length} currentPage={currentPage}/>
     </div>
   )
 }

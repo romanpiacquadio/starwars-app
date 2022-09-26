@@ -15,7 +15,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout/>}>
             <Route index element={<Planets/>} />
-            <Route path='planets/:name' element={<PlanetResidents/>} />
+            <Route path='planets' element={<Planets/>} />
+            <Route path='planet/:name' element={<PlanetResidents/>} />
             <Route path='residents/:name' element={<Resident/>} />
           </Route>
         </Routes>

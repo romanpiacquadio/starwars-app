@@ -1,12 +1,24 @@
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 const Breadcrumb = () => {
+  const {residentName, planetName} = useParams()
+  console.log(planetName, residentName)
+  
   return (
-    <div>
-      <Link to={`/`}>All Planets / </Link>
-      <Link to={`/planets`}> Planet Name / </Link>
-      <Link to={`/residents`}> Resident Name </Link>
-    </div>
+    <ul>
+      <Link to={`/planets?page=1`}>All Planets</Link>
+      {planetName && 
+      <>
+        <span> / </span>
+        <Link to={`/planet/${planetName}`}>{planetName}</Link>
+      </>}
+      {residentName && 
+      <>
+        <span> / </span>
+        <Link>{residentName}</Link>
+      </>}
+      
+    </ul>
   )
 }
 

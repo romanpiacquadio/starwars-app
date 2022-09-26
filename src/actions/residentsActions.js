@@ -10,18 +10,15 @@ export function getResidentsAction() {
         dispatch( getResidents() )
         try {
             let residents = {}
-            let next = true
-            let i = 1
-            while(next){
-                console.log(`fetcheando residents vez nro ${i}`)
-                const {data} = await axios.get(`https://swapi.dev/api/people/?page=${i}`)
+            let url = 'https://swapi.dev/api/people/?page=1'
+            while(url){
+                const {data} = await axios.get(url)
                 for (let j=0; j<data.results.length; j++) {
                     residents = { ...residents, [data.results[j].url]: [data.results[j]][0] }
                 }
-                next = data.next
-                i = i + 1
+                dispatch( getResidentsOk(residents) )
+                url = data.next
             }
-            dispatch( getResidentsOk(residents) )
 
         } catch (error) {
             dispatch( getResidentsError() )

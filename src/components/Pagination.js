@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Pagination = ({planetsPerPage, totalPlanets, paginate}) => {
+const Pagination = ({planetsPerPage, totalPlanets, currentPage}) => {
     let pageNumbers = []
 
     for (let i=1; i <= Math.ceil(totalPlanets/planetsPerPage); i++) {
@@ -11,10 +12,10 @@ const Pagination = ({planetsPerPage, totalPlanets, paginate}) => {
     <nav className='pagination'>
         <ul className='pagination__list'>
             {pageNumbers.map( page => (
-                <li className='pagination__item'>
-                    <a onClick={() => paginate(page)}>
+                <li className={ Number(currentPage) === page ? 'pagination__item__on' : 'pagination__item__off'} key={page}>
+                    <Link to={`/planets?page=${page}`} /* onClick={() => paginate(page)} */ >
                         {page}
-                    </a>
+                    </Link>
                 </li>
             ))}
         </ul>

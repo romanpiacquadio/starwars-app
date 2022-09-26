@@ -8,14 +8,14 @@ const PlanetResidents = () => {
   
   return (
     <div className="planet__resident">
-      <h4 className="planet__resident__name">{planet.name}</h4>
+      <h4 className="planet__resident__name">{planet?.name}</h4>
       <div className="planet__resident__attribute">
         <h5>Residents: </h5>
         {planet.residents.length>0 ? 
           <ul>
-              {planet.residents.map((resident, index) => 
-                <Link to={`/residents/${residents[resident].name}`}>
-                  <li key={index}>{residents[resident].name}</li>
+              {planet.residents.map( resident => 
+                <Link to={`/residents/${residents[resident]?.name}`} key={resident}>
+                  <li>{residents[resident]?.name}</li>    
                 </Link>
               )}  
           </ul> :
