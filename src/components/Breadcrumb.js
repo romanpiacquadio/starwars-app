@@ -1,21 +1,37 @@
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useLocation } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 const Breadcrumb = () => {
-  const {residentName, planetName} = useParams()
-  console.log(planetName, residentName)
+  const {pathname} = useLocation()
+  const {name} = useParams()
+
+  const residents = useSelector(state => state.residents.residents)
+  const planets = useSelector(state => state.planets.planets)
+
+  const breadcrumbFunction = (pathname, name) => {
+    if(pathname.startsWith('/residents/')){
+      const {homeworld} = Object.values(residents).find(resident => resident.name === name)
+      const homeworldName = planets.find(planet => planet.url === homeworld).name
+      return homeworldName
+    }
+  }
   
   return (
-    <ul>
+    <ul className='layout__searchbar__list'>
       <Link to={`/planets?page=1`}>All Planets</Link>
-      {planetName && 
+      
+      {pathname.startsWith('/planet/') && 
       <>
         <span> / </span>
-        <Link to={`/planet/${planetName}`}>{planetName}</Link>
+        <Link to={`/planet/${name}`} className="layout__searchbar__selected">{name}</Link>
       </>}
-      {residentName && 
+      
+      {pathname.startsWith('/residents/') && 
       <>
         <span> / </span>
-        <Link>{residentName}</Link>
+        <Link to={`/planet/${breadcrumbFunction(pathname,name)}`}>{breadcrumbFunction(pathname,name)}</Link>
+        <span> / </span>
+        <Link to={`/residents/${name}`} className="layout__searchbar__selected">{name}</Link>
       </>}
       
     </ul>

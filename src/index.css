@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+@font-face {
+  font-family: 'StarWarsFont'; /*a name to be used later*/
+  src: url('../public/fonts/stjedise/STJEDISE.TTF'); /*URL to font*/
+}
+@font-face {
+  font-family: 'StarWarsFontTitle'; /*a name to be used later*/
+  src: url('../public/fonts/starjout/Starjout.ttf') /*URL to font*/
+}

@@ -27,7 +27,7 @@ const InputFilter = () => {
   return (
     <>
       <form>
-        <input type='text' placeholder="Type a planet..." onChange={handleChange} />
+        <input type='text' placeholder="Type a planet..." onChange={handleChange} className='input__box'/>
       </form>
     </>
   )

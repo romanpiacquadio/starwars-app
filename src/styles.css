@@ -1,25 +1,68 @@
 body {
-  background-color: #ccc;
+  background-color: #D9D9D9;
 }
 body a {
   text-decoration: none;
   color: black;
 }
 
+h1, h2 {
+  font-family: StarWarsFontTitle;
+}
+
+h3, h4 {
+  font-family: StarWarsFont;
+}
+
 .layout {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #D9D9D9;
+}
+
+.layout__searchbar {
+  color: white;
+  font-weight: bold;
+}
+.layout__searchbar ul, .layout__searchbar a {
+  color: white;
+  padding: 0px;
+  font-size: 20px;
+}
+.layout__searchbar .layout__searchbar__selected {
+  text-decoration: underline;
 }
 
 .layout__title {
-  font-size: 28px;
+  font-size: 36px;
+}
+.layout__title a {
+  color: white;
+  text-shadow: -1.5px 0 #fdcf00, 0 1.5px #fdcf00, 1.5px 0 #fdcf00, 0 -1.5px #fdcf00;
+}
+
+.layout__header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(rgba(5, 7, 12, 0.25), rgba(5, 7, 12, 0.25)), url(../public/pictures/stars.jpg) no-repeat center fixed;
+  background-size: cover;
 }
 
 .planets__input {
   display: flex;
   justify-content: center;
   padding: 15px;
+}
+
+.input__box {
+  padding: 5px;
+  width: 250px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
 }
 
 .planets {
@@ -34,14 +77,19 @@ body a {
   padding: 5px;
   height: 200px;
   width: 250px;
-  border: solid 1px black;
+  border: solid 2px #db4646;
   border-radius: 5px;
+  background-color: #E4E6C3;
 }
 
 .planet__name {
+  color: #352a2a;
   margin: 15px 5px;
   text-align: center;
   font-size: 20px;
+}
+.planet__name:hover {
+  color: black;
 }
 
 .planet__attribute {
@@ -57,8 +105,9 @@ body a {
   padding: 5px;
   height: 300px;
   width: 300px;
-  border: solid 1px black;
+  border: solid 2px #db4646;
   border-radius: 5px;
+  background-color: #E4E6C3;
 }
 
 .planet__resident__name {
@@ -73,6 +122,9 @@ body a {
 .planet__resident__attribute h5, .planet__resident__attribute p {
   margin: 5px;
   font-size: 16px;
+}
+.planet__resident__attribute li:hover {
+  font-weight: bold;
 }
 
 .pagination {

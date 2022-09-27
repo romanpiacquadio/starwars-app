@@ -50,7 +50,7 @@ const Planets = () => {
         <InputFilter />
       </div>
       <div className="planets">
-        {loadingPlanets && <h4>LOADING...</h4>}
+        {loadingPlanets && <p>LOADING...</p>}
         {planets.length >= 1 && currentPlanets.map( planet => <Planet 
           key={planet.url}
           name={planet.name}

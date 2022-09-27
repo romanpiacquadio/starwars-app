@@ -6,10 +6,12 @@ const Layout = () => {
 
   return (
     <div className='layout'>
-        <Link to='/'><h2 className='layout__title'> Star-Wars App </h2></Link>
-        <nav className='layout__searchbar'>
-            <Breadcrumb />
-        </nav>
+        <div className='layout__header'>
+          <h2 className='layout__title'> <Link to='/'>Star-Wars App </Link></h2>
+          <nav className='layout__searchbar'>
+              <Breadcrumb />
+          </nav>
+        </div>
         <div>
             <Outlet/>
         </div>
